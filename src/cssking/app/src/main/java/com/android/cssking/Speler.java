@@ -16,7 +16,7 @@ public class Speler extends Wezen implements ICollision {
 
     public Speler()
     {
-        setSprite("zeldaframes", 12);
+        setSprite("linkframes", 12);
         setFriction(5);
 
         setDirection(180);
