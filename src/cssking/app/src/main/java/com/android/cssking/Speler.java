@@ -17,10 +17,10 @@ public class Speler extends Wezen implements ICollision {
     public Speler()
     {
         setSprite("linkframes", 12);
-        setFriction(5);
+        setFriction(0.25);
 
         setDirection(180);
-        setSpeed(5);
+        setSpeed(loopSnelheid);
     }
 
     @Override
