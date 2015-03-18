@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/game-api-android-master.iml" filepath="$PROJECT_DIR$/game-api-android-master.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cssking.iml" filepath="$PROJECT_DIR$/cssking.iml" />
     </modules>
   </component>
 </project>
