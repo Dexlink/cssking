@@ -92,7 +92,7 @@
       <file leaf-file-name="Speler.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/cssking/Speler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.529976" vertical-offset="289" max-vertical-offset="2788">
+            <state vertical-scroll-proportion="0.2853717" vertical-offset="391" max-vertical-offset="2788">
               <caret line="37" column="30" selection-start-line="37" selection-start-column="30" selection-end-line="37" selection-end-column="30" />
               <folding />
             </state>
@@ -1339,7 +1339,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="AndroidView">
         <subPane>
           <PATH>
@@ -1407,6 +1406,7 @@
         </subPane>
       </pane>
       <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane" />
     </panes>
   </component>
@@ -2048,7 +2048,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/cssking/Speler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.529976" vertical-offset="289" max-vertical-offset="2788">
+        <state vertical-scroll-proportion="0.2853717" vertical-offset="391" max-vertical-offset="2788">
           <caret line="37" column="30" selection-start-line="37" selection-start-column="30" selection-end-line="37" selection-end-column="30" />
           <folding />
         </state>
