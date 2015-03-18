@@ -1,2 +1,1 @@
 # cssking
-# Robert Hendriks
