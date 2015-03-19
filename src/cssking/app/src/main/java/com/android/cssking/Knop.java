@@ -13,12 +13,13 @@ import java.util.List;
 public class Knop extends KamerObject implements ICollision {
     Wezen collisionObject; //Op welk wezen reageerd deze knop
 
-
-
-    Knop(int x, int y, String spritename, Wezen wezen)
+    Knop(int x, int y, Wezen wezen)
     {
-        super(x, y, spritename);
+        setX(x);
+        setY(y);
         this.collisionObject = wezen;
+        setSprite("button", 2);
+        setFrameNumber(1);
     }
 
     @Override
@@ -27,11 +28,14 @@ public class Knop extends KamerObject implements ICollision {
         super.update();
         ArrayList<GameObject> collidedObjects = getCollidedObjects();
 
+        if(collidedObjects == null)
+            return;
+
         for(GameObject object : collidedObjects)
         {
             if(object instanceof Speler)
             {
-                //setSprite();
+                setFrameNumber(0);
             }
         }
 
@@ -41,6 +45,4 @@ public class Knop extends KamerObject implements ICollision {
     {
         //Doe niks een knop collide niet met tiles maar met wezen objecten, zie update
     }
-
-
 }

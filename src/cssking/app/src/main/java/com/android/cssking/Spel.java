@@ -88,6 +88,8 @@ public class Spel extends GameEngine {
         ArrayList<Wezen> wezensKamer1 = new ArrayList<Wezen>();
         ArrayList<KamerObject> objectenKamer1 = new ArrayList<KamerObject>();
 
+        objectenKamer1.add(new Knop(100,100, speler));
+
         wezensKamer1.add(new Spook(
                 speler
         ));
