@@ -11,10 +11,6 @@ import java.util.ArrayList;
 
 /**
  * Main class of the game 'CSS King'
- *
- *
- *
- *
  * @author Robert Hendriks, Mitch Holewijn
  */
 public class Spel extends GameEngine {
@@ -41,7 +37,6 @@ public class Spel extends GameEngine {
         addGameObject(speler);
 
 	}
-
 
     void loadKamer(int nieuweKamer)
     {
@@ -71,6 +66,14 @@ public class Spel extends GameEngine {
         }
 
         //Kamer geladen !
+    }
+
+    /*
+    * Reset de huidge kamer door hem opnieuw in te laden, gebeurd voornamelijk wanneer de speler word geraakt door een vijand
+     */
+    public void resetKamer()
+    {
+        loadKamer(huidigeKamer);
     }
 
 
