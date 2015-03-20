@@ -1,11 +1,12 @@
 package com.android.cssking;
 
-import android.gameengine.icadroids.input.OnScreenButton;
 import android.gameengine.icadroids.input.OnScreenButtons;
+import android.gameengine.icadroids.objects.GameObject;
 import android.gameengine.icadroids.objects.collisions.ICollision;
 import android.gameengine.icadroids.objects.collisions.TileCollision;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -14,7 +15,8 @@ import java.util.List;
  * TODO: fix herhalende code !!
  */
 public class Speler extends Wezen implements ICollision {
-    HashMap<String, Boolean>skills = new HashMap<String, Boolean>();
+    private HashMap<String, Boolean>skills = new HashMap<String, Boolean>();
+
     int currentFrame = 0;
     int currentFrameDelay = 0;
 
@@ -25,6 +27,9 @@ public class Speler extends Wezen implements ICollision {
 
         setDirection(180);
         setSpeed(loopSnelheid);
+
+        skills.put("display_none", false);
+        skills.put("border", false);
     }
 
     @Override
@@ -32,24 +37,25 @@ public class Speler extends Wezen implements ICollision {
     {
         super.update();
 
-        //Check of de speler beweeg
-        if(getSpeed() < 0.01)
+
+        ArrayList<GameObject> collidedObjects = getCollidedObjects();
+        if(collidedObjects  != null)
         {
-            switch(orientatie)
-            {
-                case 0:
-                    setFrameNumber(3);
-                    break;
-                case 90:
-                    setFrameNumber(8);
-                    break;
-                case 180:
-                    setFrameNumber(9);
-                    break;
-                case 270:
-                    setFrameNumber(0);
-                    break;
-            }
+
+        }
+
+        //Check of de speler beweegt, verander de sprite.
+        if(getSpeed() < 0.01) {
+            double orientatie = getDirection();
+            Log.d("Orientatie", "" + orientatie);
+            if (orientatie == 0)
+                setFrameNumber(3);
+            else if (orientatie == 90)
+                setFrameNumber(8);
+            else if (orientatie == 180)
+                setFrameNumber(9);
+            else if (orientatie == 270)
+                setFrameNumber(0);
         }
 
         //Handel input af van de push buttons
@@ -73,7 +79,6 @@ public class Speler extends Wezen implements ICollision {
             }
 
             setDirectionSpeed(0, loopSnelheid);
-            orientatie = 0;
         }
         else if(OnScreenButtons.dPadRight)
         {
@@ -96,7 +101,6 @@ public class Speler extends Wezen implements ICollision {
             }
 
             setDirectionSpeed(90, loopSnelheid);
-            orientatie = 90;
         }
         else if (OnScreenButtons.dPadDown)
         {
@@ -118,7 +122,6 @@ public class Speler extends Wezen implements ICollision {
             }
 
             setDirectionSpeed(180, loopSnelheid);
-            orientatie = 180;
         }
         else if(OnScreenButtons.dPadLeft)
         {
@@ -139,11 +142,24 @@ public class Speler extends Wezen implements ICollision {
                 }
             }
             setDirectionSpeed(270, loopSnelheid);
-            orientatie = 270;
         }
+    }
 
+    public void setSkill(String skillName, boolean status)
+    {
+        if(skills.containsKey(skillName))
+        {
+            skills.put(skillName, status);
+        }
+    }
 
-
+    public boolean getSkillStatus(String skillName)
+    {
+        if(skills.containsKey(skillName))
+        {
+            return skills.get(skillName);
+        }
+        return false;
     }
 
 
@@ -152,7 +168,7 @@ public class Speler extends Wezen implements ICollision {
     {
         for(TileCollision tc : collidedTiles)
         {
-            if(tc.theTile.getTileType() == Spel.BLOK_SPRITE)
+            if(tc.theTile.getTileType() == Spel.BLOK_TILE)
             {
                 moveUpToTileSide(tc);
                 setSpeed(0);

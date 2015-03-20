@@ -2,6 +2,8 @@ package com.android.cssking;
 
 import android.gameengine.icadroids.tiles.GameTiles;
 
+import com.android.cssking.rooms.KamerObject;
+
 import java.util.ArrayList;
 
 /**

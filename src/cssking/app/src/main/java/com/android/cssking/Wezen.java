@@ -8,7 +8,6 @@ import android.gameengine.icadroids.objects.MoveableGameObject;
 public abstract class Wezen extends MoveableGameObject {
     private int HP = 100;
     private int kracht = 10;
-    protected int orientatie;
     protected double loopSnelheid = 5;
 
 
@@ -22,10 +21,6 @@ public abstract class Wezen extends MoveableGameObject {
     /*
     * Accessors
      */
-    public int getOrientatie()
-    {
-        return this.orientatie;
-    }
 
     public void setKracht(int kracht)
     {

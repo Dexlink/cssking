@@ -5,7 +5,11 @@ import android.gameengine.icadroids.input.MotionSensor;
 import android.gameengine.icadroids.input.OnScreenButtons;
 import android.gameengine.icadroids.input.TouchInput;
 import android.gameengine.icadroids.tiles.GameTiles;
-import android.util.Log;
+
+import com.android.cssking.rooms.Blok;
+import com.android.cssking.rooms.KamerObject;
+import com.android.cssking.rooms.KamerObjectListener;
+import com.android.cssking.rooms.Knop;
 
 import java.util.ArrayList;
 
@@ -15,7 +19,9 @@ import java.util.ArrayList;
  */
 public class Spel extends GameEngine {
     //Constante
-    public static final int BLOK_SPRITE = 0;
+    public static final int BLOK_TILE = 0;
+    public static final String BLOK_SPRITE = "blok";
+
 
     private int huidigeKamer = -1;
     private ArrayList<Kamer> kamerLijst = new ArrayList<Kamer>();
@@ -84,19 +90,40 @@ public class Spel extends GameEngine {
     private void maakKamers()
     {
         //Bagger functie, kunnen we die data niet uit een db halen ... ? todolijst +1
-        String[] tileImagesNames1 = { "blok", "vissentile1" };
+        String[] tileImagesNames1 = { "blok"};
         ArrayList<Wezen> wezensKamer1 = new ArrayList<Wezen>();
-        ArrayList<KamerObject> objectenKamer1 = new ArrayList<KamerObject>();
+        final ArrayList<KamerObject> objectenKamer1 = new ArrayList<KamerObject>();
 
         objectenKamer1.add(new Knop(100,100, speler));
+        objectenKamer1.get(0).addListener(new KamerObjectListener() {
+                @Override
+                public void handelEventAf(int event_id, KamerObject object) {
+            for(KamerObject kamerObject : objectenKamer1)
+            {
+                if(kamerObject instanceof Blok)
+                {
+                    if(((Blok)kamerObject).getBlokId() == 1)
+                    deleteGameObject(kamerObject);
+                }
+            }
+            }
+            }
+        );
 
-        wezensKamer1.add(new Spook(
-                speler
-        ));
+        //Doorgang blokken
+        objectenKamer1.add(new Blok(20, 0, 1));
+        objectenKamer1.add(new Blok(40, 0, 1));
+        objectenKamer1.add(new Blok(60, 0, 1));
+
+        //Andere blokken
+        objectenKamer1.add(new Blok(100, 100));
+        objectenKamer1.add(new Blok(300, 100));
+        objectenKamer1.add(new Blok(100, 300));
+        objectenKamer1.add(new Blok(300, 300));
+        wezensKamer1.add(new Spook(speler));
 
         int[][] kamerMap1 = {
-                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                { 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  1,  1,  1,  1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0 },
+                { 0, -1, -1, -1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 0 },
                 { 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0 },
                 { 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0 },
                 { 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0 },
@@ -106,14 +133,15 @@ public class Spel extends GameEngine {
                 { 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0 },
                 { 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0 },
                 { 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0 },
-                { 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  0, -1, -1, -1, 0 },
-                { 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  0, -1, -1, -1, 0 },
-                { 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  0, -1, -1, -1, 0 },
-                { 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  0, -1, -1, -1, 0 },
-                { 0,  1,  1,  1, -1,  1,  1,  1,  1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0 },
-                { 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  0, -1, -1, -1, 0 },
-                { 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  0, -1, -1, -1, 0 },
-                { 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  0, -1, -1, -1, 0 },
+                { 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0 },
+                { 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0 },
+                { 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0 },
+                { 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0 },
+                { 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0 },
+                { 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0 },
+                { 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0 },
+                { 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0 },
+                { 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0 },
                 { 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 0 },
         };
         kamerLijst.add(new Kamer(new GameTiles(tileImagesNames1, kamerMap1,  20), wezensKamer1, objectenKamer1));
@@ -125,6 +153,5 @@ public class Spel extends GameEngine {
 		super.update();
 
         //Check of de speler nog leeft en of de monsters nog leven (oftewel meer als 0 hp hebben)
-
 	}
 }

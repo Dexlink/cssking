@@ -1,8 +1,12 @@
-package com.android.cssking;
+package com.android.cssking.rooms;
 
 import android.gameengine.icadroids.objects.GameObject;
 import android.gameengine.icadroids.objects.collisions.ICollision;
 import android.gameengine.icadroids.objects.collisions.TileCollision;
+
+import com.android.cssking.Speler;
+import com.android.cssking.Wezen;
+import com.android.cssking.rooms.KamerObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +17,7 @@ import java.util.List;
 public class Knop extends KamerObject implements ICollision {
     Wezen collisionObject; //Op welk wezen reageerd deze knop
 
-    Knop(int x, int y, Wezen wezen)
+    public Knop(int x, int y, Wezen wezen)
     {
         setX(x);
         setY(y);
@@ -36,13 +40,16 @@ public class Knop extends KamerObject implements ICollision {
             if(object instanceof Speler)
             {
                 setFrameNumber(0);
+                super.fireEvent(KamerObject.KNOP_INGEDRUKT);
             }
         }
 
     }
 
+    @Override
     public void collisionOccurred(List<TileCollision> collidedTiles)
     {
         //Doe niks een knop collide niet met tiles maar met wezen objecten, zie update
     }
+
 }

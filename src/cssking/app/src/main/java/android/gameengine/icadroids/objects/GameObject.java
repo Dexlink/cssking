@@ -379,6 +379,16 @@ public class GameObject {
 		sprite.setFrameNumber(number);
 	}
 
+    /*
+    * Toegevoegd door Robert Hendriks
+     */
+    public final int getFrameNumber()
+    {
+        return sprite.getFrameNumber();
+    }
+
+
+
 	/**
 	 * Delete the GameObject. This will also delete the Alarms of this object.
 	 */

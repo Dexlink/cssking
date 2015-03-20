@@ -1,9 +1,10 @@
 package com.android.cssking;
 
+import android.gameengine.icadroids.objects.GameObject;
 import android.gameengine.icadroids.objects.collisions.ICollision;
 import android.gameengine.icadroids.objects.collisions.TileCollision;
-import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -12,9 +13,10 @@ import java.util.Random;
  * Spook is een wezen dat probeert te ontsnappen
  */
 public class Spook extends Wezen implements ICollision {
-    public Speler deSpeler;
-    Random ran = new Random();
-    boolean nieuweVluchtRoute = true;
+    private Speler deSpeler;
+    private Random ran = new Random();
+    private boolean nieuweVluchtRoute = true;
+    private boolean gevangen = false;
 
     public Spook(Speler deSpeler)
     {
@@ -29,6 +31,15 @@ public class Spook extends Wezen implements ICollision {
     public void update()
     {
         super.update();
+
+        ArrayList<GameObject> collidedObject = new ArrayList<GameObject>();
+        for(GameObject object : collidedObject)
+        {
+            if(object instanceof Speler)
+            {
+                gevangen = true;
+            }
+        }
 
         //Check of de speler in de buurt is en ren weg
         int afstandXtotSpeler = Math.abs(deSpeler.getX() - this.getX());
@@ -61,7 +72,7 @@ public class Spook extends Wezen implements ICollision {
     {
         for (TileCollision tc : collidedTiles)
         {
-            if (tc.theTile.getTileType() == Spel.BLOK_SPRITE)
+            if (tc.theTile.getTileType() == Spel.BLOK_TILE)
             {
                 //Teleporteer naar een random plek
                 teleporteerNaarRandomLocatie();
